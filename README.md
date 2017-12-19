@@ -17,18 +17,18 @@ SD  - BCM 20 (pin 38)
 <br>
 For software, you can either follow the steps there, or do it the modern way here using a device tree overlay.<br>
 <br>
-Firstly, get an updated kernel &amp; matching kernel header files:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>sudo apt-get update
+Firstly, get an updated kernel &amp; matching kernel header files:<pre><code>sudo apt-get update
 sudo apt-get dist-upgrade
 sudo apt-get install raspberrypi-kernel-headers
 sudo reboot
 </code></pre></div>
 Next, while the upstream ics43432 codec is not currently supported by current Pi kernel builds, we must it build manually.<br>
 <br>
-Get the source &amp; create a simple Makefile:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>mkdir ics43432
+Get the source &amp; create a simple Makefile:<pre><code>mkdir ics43432
 cd ics43432
 wget https://raw.githubusercontent.com/raspberrypi/linux/rpi-4.4.y/sound/soc/codecs/ics43432.c
 nano Makefile</code></pre></div>
-Makefile contents:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>obj-m := ics43432.o
+Makefile contents:<pre><code>obj-m := ics43432.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
@@ -41,9 +41,9 @@ install:
 	sudo depmod -a
 </code></pre></div>Those indentations are a single tab character - use spaces &amp; it won't work.<br>
 <br>
-Build:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>make all install</code></pre></div>
+Build:<pre><code>make all install</code></pre></div>
 
-Next, we create a new device tree overlay. Create a file i2s-soundcard-overlay.dts with this content:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>/dts-v1/;
+Next, we create a new device tree overlay. Create a file i2s-soundcard-overlay.dts with this content:<pre><code>/dts-v1/;
 /plugin/;
 
 / {
@@ -110,10 +110,10 @@ Next, we create a new device tree overlay. Create a file i2s-soundcard-overlay.d
 };
 </code></pre></div>
 
-Compile &amp; install the overlay:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dtc -@ -I dts -O dtb -o i2s-soundcard.dtbo i2s-soundcard-overlay.dts
+Compile &amp; install the overlay:<pre><code>dtc -@ -I dts -O dtb -o i2s-soundcard.dtbo i2s-soundcard-overlay.dts
 sudo cp i2s-soundcard.dtbo /boot/overlays</code></pre></div>
 
-Finally, invoke usage by adding this to /boot/config.txt:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>dtoverlay=i2s-soundcard,alsaname=mems-mic</code></pre></div>
+Finally, invoke usage by adding this to /boot/config.txt:<pre><code>dtoverlay=i2s-soundcard,alsaname=mems-mic</code></pre></div>
 
 Reboot and you'll have a microphone recording device<div class="codebox"><p><pre><code>pi@raspberrypi:~arecord -l
 **** List of CAPTURE Hardware Devices ****
@@ -128,8 +128,8 @@ The volume level is low, and with just one module attached is in one channnel on
 The overlay is flexible enough to use other codecs by way of the compatible= override. If your preferred codec, a simple ADC or DAC, has a .compatible string defined, use that "manufacturer,chipset" string in the override. There's a switch "master" too if your codec is capable of working as clock master instead of the default slave (untested).</div>
 
 
-To create the soft mixer for volume control I used <a href="https://www.raspberrypi.org/forums/viewtopic.php?f=38&amp;t=85845" class="postlink">plugh's work</a>, extending it so that we produce true mono/single channel output. Note that I've configured my mic as left - if yours is right you'll have to edit the mic_mono multi section. If you have a stereo pair, you may omit the last section where mic_mono is defined. Edit the alsa config:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>cd ~
-nano .asoundrc</code></pre></div>&amp; add:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>pcm.mic_hw{
+To create the soft mixer for volume control I used <a href="https://www.raspberrypi.org/forums/viewtopic.php?f=38&amp;t=85845" class="postlink">plugh's work</a>, extending it so that we produce true mono/single channel output. Note that I've configured my mic as left - if yours is right you'll have to edit the mic_mono multi section. If you have a stereo pair, you may omit the last section where mic_mono is defined. Edit the alsa config:<pre><code>cd ~
+nano .asoundrc</code></pre></div>&amp; add:<pre><code>pcm.mic_hw{
         type hw
         card memsmic
         channels 2
@@ -147,7 +147,7 @@ pcm.mic_sv{
         max_dB 50.0
 }</code></pre></div>
 
-To activate the mixer, we must first make a recording using the newly configured mic_sv pcm:<div class="codebox"><p>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></p><pre><code>arecord -Dmic_sv -c2 -r48000 -fS32_LE -twav -d10 -Vstereo test.wav</code></pre></div>
+To activate the mixer, we must first make a recording using the newly configured mic_sv pcm:<pre><code>arecord -Dmic_sv -c2 -r48000 -fS32_LE -twav -d10 -Vstereo test.wav</code></pre></div>
 Now we can tinker with the boost control. In a terminal, run alsamixer, press F6, select device "mems-mic", then F4 for capture controls. A useful boost is 20-30dB.<br>
 A mixer is also in the desktop's Audio Device Settings.<br>
 </body></html>
