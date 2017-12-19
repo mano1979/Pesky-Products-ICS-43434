@@ -13,7 +13,7 @@ SCK - BCM 18 (pin 12)
 WS  - BCM 19 (pin 35)
 SD  - BCM 20 (pin 38)
 </code></pre>
-<p><a href="https://www.tindie.com/products/onehorse/ics43434-i2s-digital-microphone/" target="_blank"><img src="https://cdn.tindiemedia.com/images/resize/zAeH834QzxKpn1sKrsz0R3rg4bw=/900x600/smart/44691/products/2017-07-15T04%3A32%3A01.633Z-ICS43434.top.jpg" alt="Pesky Products ICS-43432 Breakoutboard" width="150" style="max-width:10%;"></a></p>
+<p><a href="https://www.tindie.com/products/onehorse/ics43434-i2s-digital-microphone/" target="_blank"><img src="https://cdn.tindiemedia.com/images/resize/zAeH834QzxKpn1sKrsz0R3rg4bw=/900x600/smart/44691/products/2017-07-15T04%3A32%3A01.633Z-ICS43434.top.jpg" alt="Pesky Products ICS-43432 Breakoutboard" width="150" style="max-width:10%;"><br>Buy your Pesky Products ICS-43434 breakout board here</a></p>
 <br>
 For software, you can either follow the steps there, or do it the modern way here using a device tree overlay.<br>
 <br><br>
