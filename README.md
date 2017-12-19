@@ -1,5 +1,6 @@
 <html><head></head><body>Source: https://www.raspberrypi.org/forums/viewtopic.php?t=173640
 <div class="content">
+<h1>Setting up the Pesky Products ICS-43434 MEMS microphone breakout on the Raspberry Pi</h1><br><br>
 <h2>Hardware Setup</h2>
 <p>The following documentation used the ICS43432 MEMs microphone with a breakout board on an RPi 2.  Mirophone documentation can be found <a href="https://www.embeddedmasters.com/datasheets/embedded/EMMIC-ICS43432-DS.pdf">here</a>.  Header pins were soldered to the breakout board.  Unfortunately the breakout board was poorly designed and in order to properly install the header pins, the pin labels were covered.  Regardless, the connection uses Pulse Code Modulation which requires four GPIO pins from the RPi.  The PCM setup can be found <a href="https://pinout.xyz/pinout/pcm">here</a>.  The connection is as follows:
 <a href="https://raw.githubusercontent.com/nejohnson2/rpi-i2s/master/rpi-pins.png" target="_blank"><img src="https://raw.githubusercontent.com/nejohnson2/rpi-i2s/master/rpi-pins.png" align="right" width="334" height="446" style="max-width:100%;"></a></p>
