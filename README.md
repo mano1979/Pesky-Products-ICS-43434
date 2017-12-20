@@ -29,17 +29,19 @@ Get the source &amp; create a simple Makefile:<pre><code>mkdir ics43432
 cd ics43432
 wget https://raw.githubusercontent.com/raspberrypi/linux/rpi-4.4.y/sound/soc/codecs/ics43432.c
 nano Makefile</code></pre></div>
-Makefile contents:<pre><code>obj-m := ics43432.o
+Makefile contents:<pre><code>
+
+obj-m := ics43432.o
 
 all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+&#9;make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
 
 clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+&#9;make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 
 install:
-	sudo cp ics43432.ko /lib/modules/$(shell uname -r)
-	sudo depmod -a
+&#9;sudo cp ics43432.ko /lib/modules/$(shell uname -r)
+&#9;sudo depmod -a
 </code></pre></div>Those indentations are a single tab character - use spaces &amp; it won't work.<br>
 <br>
 Build:<pre><code>make all install</code></pre></div>
