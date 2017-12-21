@@ -1,4 +1,4 @@
-<html><head></head><body>Source: https://www.raspberrypi.org/forums/viewtopic.php?t=173640
+<html><head></head><body>
 <div class="content">
 <h1>Setting up the Pesky Products ICS-43434 MEMS microphone breakout on the Raspberry Pi</h1><br><br>
 <h2>Hardware Setup</h2>
@@ -153,5 +153,7 @@ pcm.mic_sv{
 
 To activate the mixer, we must first make a recording using the newly configured mic_sv pcm:<pre><code>arecord -Dmic_sv -c2 -r48000 -fS32_LE -twav -d10 -Vstereo test.wav</code></pre></div>
 Now we can tinker with the boost control. In a terminal, run alsamixer, press F6, select device "mems-mic", then F4 for capture controls. A useful boost is 20-30dB.<br>
-A mixer is also in the desktop's Audio Device Settings.<br>
+A mixer is also in the desktop's Audio Device Settings.<br><br><br>
+
+Source: https://www.raspberrypi.org/forums/viewtopic.php?t=173640
 </body></html>
