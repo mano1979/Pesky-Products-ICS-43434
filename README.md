@@ -133,7 +133,7 @@ The overlay is flexible enough to use other codecs by way of the compatible= ove
 
 
 To create the soft mixer for volume control I used <a href="https://www.raspberrypi.org/forums/viewtopic.php?f=38&amp;t=85845" class="postlink">plugh's work</a>, extending it so that we produce true mono/single channel output. Note that I've configured my mic as left - if yours is right you'll have to edit the mic_mono multi section. If you have a stereo pair, you may omit the last section where mic_mono is defined. Edit the alsa config:<pre><code>cd ~
-nano .asoundrc</code></pre></div>&amp; add:<pre><code>pcm.mic_hw{
+nano .asoundrc</code></pre></div>And replace the content of the file with:<pre><code>pcm.mic_hw{
         type hw
         card memsmic
         channels 2
