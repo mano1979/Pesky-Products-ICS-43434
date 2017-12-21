@@ -46,70 +46,71 @@ install:
 <br>
 Build:<pre><code>make all install</code></pre></div>
 
-Next, we create a new device tree overlay. Create a file i2s-soundcard-overlay.dts with this content:<pre><code>/dts-v1/;
+Next, we create a new device tree overlay. Create a file i2s-soundcard-overlay.dts with this content:<pre><code>
+/dts-v1/;
 /plugin/;
 
 / {
-    compatible = "brcm,bcm2708";
+&#9;compatible = "brcm,bcm2708";
 
-    fragment@0 {
-        target = &lt;&amp;i2s&gt;;
-        __overlay__ {
-            status = "okay";
-        };
-    };
+&#9;fragment@0 {
+&#9;&#9;target = &lt;&amp;i2s&gt;;
+&#9;&#9;__overlay__ {
+&#9;&#9;&#9;status = "okay";
+&#9;&#9;};
+&#9;};
 
-    fragment@1 {
-        target-path = "/";
-        __overlay__ {
-            card_codec: card-codec {
-                #sound-dai-cells = &lt;0&gt;;
-                compatible = "invensense,ics43432";
-                status = "okay";
-            };
-        };
-    };
+&#9;fragment@1 {
+&#9;&#9;target-path = "/";
+&#9;&#9;__overlay__ {
+&#9;&#9;&#9;card_codec: card-codec {
+&#9;&#9;&#9;&#9;#sound-dai-cells = &lt;0&gt;;
+&#9;&#9;&#9;&#9;compatible = "invensense,ics43432";
+&#9;&#9;&#9;&#9;status = "okay";
+&#9;&#9;&#9;};
+&#9;&#9;};
+&#9;};
 
-    fragment@2 {
-        target = &lt;&amp;sound&gt;;
-        master_overlay: __dormant__ {
-            compatible = "simple-audio-card";
-            simple-audio-card,format = "i2s";
-            simple-audio-card,name = "soundcard";
-            simple-audio-card,bitclock-master = &lt;&amp;dailink0_master&gt;;
-            simple-audio-card,frame-master = &lt;&amp;dailink0_master&gt;;
-            status = "okay";
-            simple-audio-card,cpu {
-                sound-dai = &lt;&amp;i2s&gt;;
-            };
-            dailink0_master: simple-audio-card,codec {
-                sound-dai = &lt;&amp;card_codec&gt;;
-            };
-        };
-    };
+&#9;fragment@2 {
+&#9;&#9;target = &lt;&amp;sound&gt;;
+&#9;&#9;master_overlay: __dormant__ {
+&#9;&#9;&#9;compatible = "simple-audio-card";
+&#9;&#9;&#9;simple-audio-card,format = "i2s";
+&#9;&#9;&#9;simple-audio-card,name = "soundcard";
+&#9;&#9;&#9;simple-audio-card,bitclock-master = &lt;&amp;dailink0_master&gt;;
+&#9;&#9;&#9;simple-audio-card,frame-master = &lt;&amp;dailink0_master&gt;;
+&#9;&#9;&#9;status = "okay";
+&#9;&#9;&#9;simple-audio-card,cpu {
+&#9;&#9;&#9;&#9;sound-dai = &lt;&amp;i2s&gt;;
+&#9;&#9;&#9;};
+&#9;&#9;&#9;dailink0_master: simple-audio-card,codec {
+&#9;&#9;&#9;&#9;sound-dai = &lt;&amp;card_codec&gt;;
+&#9;&#9;&#9;};
+&#9;&#9;};
+&#9;};
 
-    fragment@3 {
-        target = &lt;&amp;sound&gt;;
-        slave_overlay: __overlay__ {
-                compatible = "simple-audio-card";
-                simple-audio-card,format = "i2s";
-                simple-audio-card,name = "soundcard";
-                status = "okay";
-                simple-audio-card,cpu {
-                    sound-dai = &lt;&amp;i2s&gt;;
-                };
-                dailink0_slave: simple-audio-card,codec {
-                    sound-dai = &lt;&amp;card_codec&gt;;
-                };
-        };
-    };
+&#9;fragment@3 {
+&#9;&#9;target = &lt;&amp;sound&gt;;
+&#9;&#9;slave_overlay: __overlay__ {
+&#9;&#9;&#9;&#9;compatible = "simple-audio-card";
+&#9;&#9;&#9;&#9;simple-audio-card,format = "i2s";
+&#9;&#9;&#9;&#9;simple-audio-card,name = "soundcard";
+&#9;&#9;&#9;&#9;status = "okay";
+&#9;&#9;&#9;&#9;simple-audio-card,cpu {
+&#9;&#9;&#9;&#9;&#9;sound-dai = &lt;&amp;i2s&gt;;
+&#9;&#9;&#9;&#9;};
+&#9;&#9;&#9;&#9;dailink0_slave: simple-audio-card,codec {
+&#9;&#9;&#9;&#9;&#9;sound-dai = &lt;&amp;card_codec&gt;;
+&#9;&#9;&#9;&#9;};
+&#9;&#9;};
+&#9;};
 
-    __overrides__ {
-        alsaname = &lt;&amp;master_overlay&gt;,"simple-audio-card,name",
-                    &lt;&amp;slave_overlay&gt;,"simple-audio-card,name";
-        compatible = &lt;&amp;card_codec&gt;,"compatible";
-        master = &lt;0&gt;,"=2!3";
-    };
+&#9;__overrides__ {
+&#9;&#9;alsaname = &lt;&amp;master_overlay&gt;,"simple-audio-card,name",
+&#9;&#9;&#9;&#9;&lt;&amp;slave_overlay&gt;,"simple-audio-card,name";
+&#9;&#9;compatible = &lt;&amp;card_codec&gt;,"compatible";
+&#9;&#9;master = &lt;0&gt;,"=2!3";
+&#9;};
 };
 </code></pre></div>
 
