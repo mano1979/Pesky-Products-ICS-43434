@@ -1,5 +1,4 @@
-<html><head></head><body>
-<div class="content">
+<html><head></head><body><div class="content">
 <h1>Setting up the Pesky Products ICS-43434 MEMS microphone breakout on the Raspberry Pi</h1><br><br>
 <h2>Hardware Setup</h2>
 <p>The following documentation used the ICS43432 MEMs microphone with a breakout board on an RPi 2.  Mirophone documentation can be found <a href="https://www.embeddedmasters.com/datasheets/embedded/EMMIC-ICS43432-DS.pdf">here</a>.  Header pins were soldered to the breakout board.  Unfortunately the breakout board was poorly designed and in order to properly install the header pins, the pin labels were covered.  Regardless, the connection uses Pulse Code Modulation which requires four GPIO pins from the RPi.  The PCM setup can be found <a href="https://pinout.xyz/pinout/pcm">here</a>.  The connection is as follows:
@@ -14,9 +13,8 @@ WS  - BCM 19 (pin 35)
 SD  - BCM 20 (pin 38)
 </code></pre>
 <p><a href="https://www.tindie.com/products/onehorse/ics43434-i2s-digital-microphone/" target="_blank"><img src="https://cdn.tindiemedia.com/images/resize/zAeH834QzxKpn1sKrsz0R3rg4bw=/900x600/smart/44691/products/2017-07-15T04%3A32%3A01.633Z-ICS43434.top.jpg" alt="Pesky Products ICS-43432 Breakoutboard" width="150" style="max-width:10%;"><br>Buy your Pesky Products ICS-43434 breakout board here</a></p>
-<br>
-For software, you can either follow the steps there, or do it the modern way here using a device tree overlay.<br>
 <br><br>
+<h2>Software Setup</h2>
 Firstly, get an updated kernel &amp; matching kernel header files:
 <br><br><pre><code>sudo apt-get update
 sudo apt-get dist-upgrade
