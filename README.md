@@ -124,6 +124,8 @@ card 1: memsmic [mems-mic], device 0: bcm2835-i2s-ics43432-hifi ics43432-hifi-0 
   Subdevice #0: subdevice #0</code></pre></div>
   <br>
 Make a 10 second long recording with:<br><pre><code>arecord -Dhw:1 -c2 -r48000 -fS32_LE -twav -d10 -Vstereo test.wav</code></pre></div>
+To play the recorded wave-file:
+<br><pre><code>aplay test.wav</code></pre>
 
 The volume level is low, and with just one module attached is in one channnel only, silence in the other. Both those issues can be addressed by modifying .asoundrc, see below.<br>
 <br>
@@ -153,5 +155,11 @@ To activate the mixer, we must first make a recording using the newly configured
 Now we can tinker with the boost control. In a terminal, run alsamixer, press F6, select device "mems-mic", then F4 for capture controls. A useful boost is 20-30dB.<br>
 A mixer is also in the desktop's Audio Device Settings.<br><br><br>
 
-Source: https://www.raspberrypi.org/forums/viewtopic.php?t=173640
+Now you can record again, but with the new volume settings:
+<pre><code>arecord -Dmic_sv -c2 -r48000 -fS32_LE -twav -d10 -Vstereo test.wav</code></pre>
+
+To play the recorded wave-file:
+<br><pre><code>aplay test.wav</code></pre>
+
+Most of this info came from: https://www.raspberrypi.org/forums/viewtopic.php?t=173640
 </body></html>
