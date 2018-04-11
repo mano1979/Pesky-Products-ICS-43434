@@ -19,6 +19,14 @@ Firstly, get an updated kernel &amp; matching kernel header files:
 <br><br><pre><code>sudo apt-get update
 sudo apt-get dist-upgrade
 sudo apt-get install raspberrypi-kernel-headers
+</code></pre>
+Before rebooting do:
+  <code>sudo nano /boot/config.txt</code><br>
+  and uncomment this line by removing the # in front of it.
+  <code>#dtparam=i2s=on</code><br>
+  or add it if it ain't there.
+  Next do a reboot.
+  <code>
 sudo reboot
 </code></pre></div>
 Next, while the upstream ics43432 codec is not currently supported by current Pi kernel builds, we must it build manually.
